@@ -1,0 +1,8 @@
+<div>
+  <ul>
+    <div *ngIf="datas.data as user">
+      <app-users-list [user]="user"></app-users-list>
+    </div>
+  </ul>
+</div>
+<app-login></app-login>
