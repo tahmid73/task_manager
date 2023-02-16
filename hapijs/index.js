@@ -42,6 +42,13 @@ const addUser = async (username, password) => {
   console.log(query)
   await handle_request(query)
 }
+
+//adding task
+const addTask = async (u_id, t_name,status) => {
+  let query= `INSERT INTO public.tasks(u_id, t_name, status) VALUES ('${u_id}', '${t_name}', '${status}')`
+  console.log(query)
+  await handle_request(query)
+}
 //login user  
 const loginUser =async (username, password) => {
   let query = `SELECT username, password FROM public.user WHERE username = '${username}' AND password = '${password}'`
@@ -103,6 +110,7 @@ const start = async () => {
           method: 'POST',
           path: '/api/login',
           handler: async (request, h) => {
+            console.log('request received')
             let res = await loginUser(request.payload.username, request.payload.password)
             if(res == true){
               return h.response({data: "login successful"})
@@ -110,6 +118,14 @@ const start = async () => {
             else{
               return h.response({data: "login failed"})
             }
+          }
+        },
+        {
+          method: 'POST',
+          path: '/api/addTask',
+          handler: async (request, h) => {
+            let res = await addTask(request.payload.u_id, request.payload.t_name,"pending")
+            return h.response({data: res})
           }
         }
     ]);
