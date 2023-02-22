@@ -2,6 +2,7 @@
 
 const Hapi = require('@hapi/hapi');
 const { Client,Pool } = require('pg');
+const Joi = require('joi');
 // const cors=require('cors');
  
 const client = () => {
@@ -10,7 +11,7 @@ const client = () => {
     port: 5432,
     user: 'tahmid',
     password:'123',
-    database: 'users'
+    database: 'task_manager'
   })
   return pool;
 }
@@ -37,8 +38,8 @@ const handle_request = async (query,type) => {
  }
 
 //adding user 
-const addUser = async (username, password) => {
-  let query= `INSERT INTO public.user(username, password) VALUES ('${username}', '${password}')`
+const addUser = async (email, password, name) => {
+  let query= `INSERT INTO users(login_id, "name", email, "password") VALUES('${email}', '${name}', '${email}', '${password}');`  
   console.log(query)
   await handle_request(query)
 }
@@ -88,12 +89,12 @@ const start = async () => {
       {
         method: 'GET',
         path: '/api/users',
-        options:{
-          cors: true
-        },
+        // options:{
+        //   cors: true
+        // },
         handler: async (request, h) => {
           console.log('request received')
-          let res = await handle_request('SELECT * FROM public.user')
+          let res = await handle_request('SELECT * FROM public.users')
           return h.response({data: res.data})
           }
         },
@@ -102,9 +103,20 @@ const start = async () => {
           path: '/api/register',
           handler: async (request, h) => {
             console.log('request received')
-            let res = await addUser(request.payload.username, request.payload.password)
-            return h.response({data: res})
-          }
+            let res = await addUser(request.payload.email, request.payload.password,request.payload.name)
+            return h.response({data: res.data})
+            // console.log(request.payload.email, request.payload.password,request.payload.name)
+            // return "hello"
+          },
+          options: {
+            validate: {
+                payload: Joi.object({
+                    email: Joi.required(),
+                    password: Joi.string().min(6).max(100).required(),
+                    name: Joi.string().required()
+                })
+            }
+        }
         },
         {
           method: 'POST',

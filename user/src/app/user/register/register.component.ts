@@ -15,13 +15,14 @@ export class RegisterComponent implements OnInit{
     ){}
   ngOnInit (): void {
     this.registerForm = this.fb.group({
-      username:[''],
+      name:[''],
       password:[''],
+      email:[''],
     })
   }
   register(){
     console.log(this.registerForm.value)
-    const Credentials={"username":this.registerForm.value.username,"password":this.registerForm.value.password}
+    const Credentials={"email":this.registerForm.value.email,"password":this.registerForm.value.password, "name":this.registerForm.value.name}
     this.http.post('http://localhost:3000/api/register', Credentials)
     .subscribe((data)=>{
       console.log(data);

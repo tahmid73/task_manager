@@ -1,11 +1,131 @@
-<form [formGroup]="registerForm" (ngSubmit)="register()">
-    <div class="form-group">
-        <input formControlName="username" class="form-control" type="text" placeholder="Username" name="username" required>
-    </div>
-    <div class="form-group">
-        <input formControlName="password" class="form-control" type="text" placeholder="Password" name="password" required>
-    </div>
-    <div class="form-group">
-        <input class="btn btn-primary" type="submit" name="Submit" placeholder="Register">
-    </div>
-</form>
+<div class="relative bg-green-300 w-full h-full">
+    <div class="absolute bg-[#f4f6fa] rounded-[15px]">
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+            <div>
+                <label for="email" class="inputLabel">Email</label>
+                <input formControlName="email" type="text" name="email" class="input" placeholder="Email" required>
+            </div>
+            <div>
+                <label for="password" class="inputLabel">Password</label>
+                <input formControlName="password" type="text" name="password" class="input" placeholder="Password" required>
+            </div>
+            <div>
+                <label for="name" class="inputLabel">Name</label>
+                <input formControlName="name" type="text" name="name" class="input" placeholder="Password" required>
+            </div>
+            <div class="form-group">
+                <button class="bg-[#639F5D] hover:bg-green-900 text-white font-bold py-2 px-4 rounded-lg" type="submit">
+                    Button
+                  </button>
+            </div>
+        </form>
+</div>
+</div>
+
+<!-- 
+    <div class="relative w-[1440px] h-[1024px] bg-[rgba(200,227,188,1)] overflow-clip">
+<div
+  class="absolute w-[1378px] h-[955px] left-[31px] top-[34px] bg-[rgba(244,246,250,1)] rounded-[15px]">
+<div
+  class="[box-shadow:0px_0px_0px_1px_rgba(100,_161,_95,_1)_inset] [box-shadow-width:1px] absolute w-[191px] h-[57px] left-[106px] top-[88px] bg-[rgba(244,246,250,1)] rounded-[20px]"
+ >
+<div
+  class="absolute text-center leading-none inline-block font-extrabold left-[116px] top-[97px]"
+>
+  <p
+    class="inline m-0 text-[28px] leading-[normal] text-[rgba(100,161,95,1)]"
+  >
+    Task
+  </p>
+  <p class="text-black inline m-0 text-[28px] leading-[normal]">
+    Manager
+  </p>
+</div>
+<div
+  class="h-20 absolute text-left leading-none inline-block font-semibold w-[455px] left-[492px] top-[181px] "
+>
+  <p
+    class="inline m-0 text-[50px] leading-[normal] text-[rgba(99,159,93,1)]"
+  >
+    Manage
+  </p>
+  <p class="text-black inline m-0 text-[50px] leading-[normal]">
+  </p>
+  <p
+    class="inline m-0 text-[50px] leading-[normal] text-[rgba(34,34,36,1)]"
+  >
+    Your Task
+  </p>
+</div>
+<div
+  class="absolute bg-white w-[157px] h-[57px] left-[1187px] top-[88px] rounded-[20px]"
+ >
+<p
+  class="absolute text-xl font-semibold text-center text-black inline m-0 left-[1077px] top-[105px] leading-[normal]"
+>
+  Sign In
+</p>
+<p
+  class="absolute text-xl font-semibold text-center inline m-0 left-[1228px] top-[105px] leading-[normal] text-[rgba(100,161,95,1)]"
+>
+  Sign Up
+</p>
+<div
+  class="absolute w-[920px] h-[521px] left-[287px] top-[336px] drop-shadow-lg bg-[rgba(244,246,250,1)] rounded-[20px]"
+ >
+<p
+  class={`absolute text-3xl font-semibold text-left inline m-0 left-[848px] top-[393px] leading-[normal] text-[rgba(99,159,93,1)]`}
+>
+  Register
+</p>
+<div
+  class="absolute rounded-tl-[20px] rounded-bl-[20px] w-[339px] h-[521px] left-[287px] top-[336px] bg-[rgba(200,227,188,1)]"
+ >
+<p
+  class={`absolute text-3xl font-semibold text-left text-black inline m-0 left-[314px] top-[526px] leading-[normal]`}
+>
+  Information
+</p>
+<p
+  class={`absolute text-xl font-medium text-left text-black inline m-0 left-[314px] top-[588px] leading-[normal]`}
+>
+  want to track your projects?
+  <br />
+  Complete your registration 
+  <br />
+  with few of your information.
+  <br />
+</p>
+<div
+  class="[box-shadow:0px_0px_0px_1px_rgba(0,_0,_0,_0.4)_inset] [box-shadow-width:1px] w-56 absolute h-[60px] left-[685px] top-[490px] bg-[rgba(244,246,250,1)]"
+ >
+<div
+  class="[box-shadow:0px_0px_0px_1px_rgba(0,_0,_0,_0.4)_inset] [box-shadow-width:1px] absolute w-[223px] h-[60px] left-[930px] top-[491px] bg-[rgba(244,246,250,1)]"
+ >
+<div
+  class="w-56 absolute h-[70px] left-[807px] top-[711px] bg-[rgba(99,159,93,1)] rounded-[20px]"
+ >
+<p
+  class={`absolute font-bold text-center text-white inline m-0 left-[875px] top-[731px]  text-[25px] leading-[normal]`}
+>
+  Signup
+</p>
+<div
+  class="[box-shadow:0px_0px_0px_1px_rgba(0,_0,_0,_0.4)_inset] [box-shadow-width:1px] absolute w-[468px] h-[60px] left-[685px] top-[605px] bg-[rgba(244,246,250,1)]"
+ >
+<p
+  class={`absolute text-xl font-medium text-left text-black inline m-0 left-[685px] top-[459px] leading-[normal]`}
+>
+  Name
+</p>
+<p
+  class={`absolute text-xl font-medium text-left text-black inline m-0 left-[930px] top-[459px] leading-[normal]`}
+>
+  Password
+</p>
+<p
+  class={`absolute text-xl font-medium text-left text-black inline m-0 left-[685px] top-[573px] leading-[normal]`}
+>
+  Email
+</p>
+</div> -->
