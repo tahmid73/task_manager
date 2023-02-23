@@ -21,13 +21,13 @@ export class RegisterComponent implements OnInit{
     })
   }
   register(){
-    console.log(this.registerForm.value)
+    // console.log(this.registerForm.value)
     const Credentials={"email":this.registerForm.value.email,"password":this.registerForm.value.password, "name":this.registerForm.value.name}
     this.http.post('http://localhost:3000/api/register', Credentials)
     .subscribe((data)=>{
-      console.log(data);
+      // console.log(data);
     })
-    console.log(Credentials)
+    // console.log(Credentials)
   }
 
 }
