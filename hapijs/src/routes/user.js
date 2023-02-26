@@ -19,7 +19,7 @@ module.exports = [
     // },
     handler: async (request, h) => {
       console.log('request received')
-      let res = await handle_request('SELECT * FROM public.users')
+      let res = await handle_request.handle_request('SELECT * FROM public.users')
       return h.response({ data: res.data })
     }
   },
@@ -27,8 +27,8 @@ module.exports = [
     method: 'POST',
     path: '/api/register',
     handler: async (request, h) => {
-      console.log('request received')
-      let res = await addUser(request.payload.email, request.payload.password, request.payload.name)
+      console.log('request received',request.pg, request.payload.email, request.payload.password, request.payload.name)
+      let res = await user.addUser(request.pg,request.payload.email, request.payload.password, request.payload.name)
       console.log("show")
       return h.response({ data: res })
     },
@@ -46,8 +46,8 @@ module.exports = [
     method: 'POST',
     path: '/api/login',
     handler: async (request, h) => {
-      console.log('request received', request.payload.username, request.payload.password)
-      let res = await user.loginUser(request.pg, request.payload.username, request.payload.password)
+      // console.log('request received',  request.payload.email, request.payload.password)
+      let res = await user.loginUser(request.pg,request.payload.email, request.payload.password)
       if (res == true) {
         return h.response({ data: "login successful" })
       }

@@ -1,11 +1,11 @@
 <form [formGroup]="loginForm" (ngSubmit)="login()">
     <div class="form-group">
-        <input formControlName="email" class="form-control" type="text" placeholder="email" name="email" required>
+        <input formControlName="email" class="input" type="text" placeholder="email" name="email" required>
     </div>
     <div class="form-group">
-        <input formControlName="password" class="form-control" type="text" placeholder="password" name="password" required>
+        <input formControlName="password" class="input" type="text" placeholder="password" name="password" required>
     </div>
-    <div class="form-group">
-        <input class="btn btn-primary" type="submit" name="Submit">
-    </div>
+    <button class="bg-[#639F5D] hover:bg-green-900 text-white font-bold py-2 px-4 rounded-lg" type="submit">
+        Button
+      </button>
 </form>

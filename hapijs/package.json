@@ -11,11 +11,14 @@
   "dependencies": {
     "@hapi/basic": "^7.0.1",
     "@hapi/hapi": "^21.2.2",
+    "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
     "env2": "^2.2.2",
+    "hapi-auth-jwt2": "^10.4.0",
     "hapi-auto-route": "^3.0.4",
     "hapi-postgres-connection": "^7.0.0",
     "joi": "^17.8.3",
+    "nodemailer": "^6.9.1",
     "pg": "^8.9.0"
   }
 }

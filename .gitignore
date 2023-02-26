@@ -42,5 +42,6 @@
 /user/Thumbs.db
 
 /hapijs/node_modules
-/hapijs/.env
+/hapijs/src/env/
 /hapijs/test.rest
+hapijs/src/env/.env

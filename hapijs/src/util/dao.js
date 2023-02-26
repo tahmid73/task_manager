@@ -16,7 +16,7 @@ module.exports = {
     switch (type) {
       case 'login': return { data: res.rows[0] }
       case 'register': return "registration successful"
-      default: return { data: res.rows }
+      default: return { data: res.rows[0] }
     }
 
   }

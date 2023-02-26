@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit{
 
   login(){
     console.log(this.loginForm.value)
-    const Credentials=[{"email":this.loginForm.value.email,"password":this.loginForm.value.password}]
+    const Credentials={"email":this.loginForm.value.email,"password":this.loginForm.value.password}
     console.log(Credentials)
     this.http.post('http://localhost:3000/api/login', Credentials)
     .subscribe((data)=>{
