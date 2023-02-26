@@ -2,17 +2,18 @@
 const handle = require('../util/dao')
 const bcrypt = require('bcrypt')
 const nodemailer = require('nodemailer')
+const jwt = require('jsonwebtoken')
 
 const transporter = nodemailer.createTransport({
-  host:'smtp.zoho.com',
-  port:465,
-  secure:true,
+  host: 'smtp.zoho.com',
+  port: 465,
+  secure: true,
   auth: {
-    user:process.env.email,
-    pass:process.env.email_password
+    user: process.env.email,
+    pass: process.env.email_password
   }
 })
-var mailOptions ={
+var mailOptions = {
   from: process.env.email,
   to: 'tahmidislam73@gmail.com',
   subject: 'Registeration successful',
@@ -26,27 +27,27 @@ module.exports = {
     return result.data
   },
 
-  async addUser(pool,email, password, name) {
+  async addUser(pool, email, password, name) {
     const hashedPassword = await bcrypt.hash(password, 10)
     console.log(hashedPassword)
     let query = `INSERT INTO users(login_id, "name", email, "password") VALUES('${email}', '${name}', '${email}', '${hashedPassword}');`
-    console.log("query",query)
-    var req=await handle.handle_request(pool,query, "register")
+    console.log("query", query)
+    var req = await handle.handle_request(pool, query, "register")
     console.log(req)
     await transporter.sendMail(
-      mailOptions={
+      mailOptions = {
         from: process.env.email,
         to: 'tahmidislam73@gmail.com',
         subject: 'Registeration successful To TASK MANAGER',
         text: `Welcome ${name}, now you are a registered member of TASK MANAGER!`
-      }, 
+      },
       function (error, info) {
-      if (error) {
-        console.log(error);
-      } else {
-        console.log('Email sent: ' + info.response);
-      }
-    })
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      })
   },
 
   //adding task
@@ -58,31 +59,26 @@ module.exports = {
   //login user  
   async loginUser(pool, email, password) {
     const hashedPassword = await bcrypt.hash(password, 10)
-    console.log(hashedPassword)
-    let query = `SELECT password FROM public.users WHERE email = '${email}'`
-    console.log(query)
-    const result = await handle.handle_request(pool, query,"login")
-    console.log(result.data)
-    // console.log(email, password)
-    if(result.data){
-    const isValid=await bcrypt.compare(password,result.data.password) 
-    console.log(isValid)
-    return isValid
-  }
-  else{
-    return false
-  }
-    
-
-    // if (result.data == []) {
-    //   console.log("no user found")
-    //   return false
-    // }
-    // else if (result.data.email == email && result.data.password == password) {
-    //   return true
-    // }
-    // else {
-    //   return false
-    // }
+    let query = `SELECT * FROM public.users WHERE email = '${email}'`
+    const result = await handle.handle_request(pool, query, "login")
+    if (result.data) {
+      const isValid = await bcrypt.compare(password, result.data.password)
+      if (isValid) {
+        const token = await jwt.sign({
+          name: result.data.name,
+          id: result.data.id
+        },
+          process.env.JWT_KEY)
+        const decoded = await jwt.verify(token, process.env.JWT_KEY)
+        var { iat } = decoded
+        iat = new Date(iat * 1000).toUTCString()
+        let query1 = `INSERT INTO user_logged_history(user_id, login_time, "token")VALUES(${result.data.id}, '${iat}', '${token}');`
+        const result1 = await handle.handle_request(pool, query1)
+      }
+      return isValid
+    }
+    else {
+      return false
+    }
   }
 }
